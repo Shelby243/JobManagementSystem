@@ -1,5 +1,10 @@
-import { value } from "./test-named.js";
-import randomValue from "./test-default.js";
+import express from "express";
+const app = express();
 
-console.log(value);
-console.log(randomValue);
+app.get("/", (req, res) => {
+  res.send("Welcome!");
+});
+
+app.listen(5100, () => {
+  console.log(`Server is Listening ...`);
+});
