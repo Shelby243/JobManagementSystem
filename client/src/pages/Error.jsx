@@ -3,6 +3,7 @@ import Wrapper from "../assets/wrappers/ErrorPage";
 import img from "../assets/images/not-found-red.svg";
 const Error = () => {
   const error = useRouteError();
+
   if (error.status === 404) {
     return (
       <Wrapper>

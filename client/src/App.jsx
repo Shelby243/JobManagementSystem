@@ -11,6 +11,7 @@ import {
   AllJobs,
   Profile,
   Admin,
+  EditJob,
 } from "./pages";
 
 export const checkDefaultTheme = () => {
@@ -20,7 +21,18 @@ export const checkDefaultTheme = () => {
   return isDarkTheme;
 };
 
-checkDefaultTheme();
+import { action as registerAction } from "./pages/Register";
+import { action as loginAction } from "./pages/Login";
+import { loader as dashboardLoader } from "./pages/DashBoardLayout";
+import { action as addJobAction } from "./pages/AddJob";
+import { loader as allJobsLoader } from "./pages/AllJobs";
+import { action as editJobAction } from "./pages/EditJob";
+import { loader as editJobLoader } from "./pages/EditJob";
+import { action as deleteJobAction } from "./pages/DeleteJob";
+import { loader as adminLoader } from "./pages/Admin";
+import { action as profileAction } from "./pages/Profile";
+import { loader as statsLoader } from "./pages/Stats";
+const isDarkThemeEnabled = checkDefaultTheme();
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,34 +46,52 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+        action: registerAction,
       },
       {
         path: "login",
         element: <Login />,
+        action: loginAction,
       },
       {
         path: "dashboard",
-        element: <DashBoardLayout />,
+        element: <DashBoardLayout isDarkThemeEnabled={isDarkThemeEnabled} />,
+        loader: dashboardLoader,
         children: [
           {
             index: true,
             element: <AddJob />,
+            action: addJobAction,
           },
           {
             path: "stats",
             element: <Stats />,
+            loader: statsLoader,
           },
           {
             path: "all-jobs",
             element: <AllJobs />,
+            loader: allJobsLoader,
           },
           {
             path: "profile",
             element: <Profile />,
+            action: profileAction,
           },
           {
             path: "admin",
             element: <Admin />,
+            loader: adminLoader,
+          },
+          {
+            path: "edit-job/:id",
+            element: <EditJob />,
+            loader: editJobLoader,
+            action: editJobAction,
+          },
+          {
+            path: "delete-job/:id",
+            action: deleteJobAction,
           },
         ],
       },
